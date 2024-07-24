@@ -248,6 +248,13 @@ jobs:
             rustflags: '-Z mir-opt-level=4 -C lto=fat -D warnings -C target-cpu=z10',
             target: 's390x-unknown-linux-gnu',
           },
+          {
+            arch: 'riscv64',
+            cflags: '-Os -flto=full -fstrict-aliasing',
+            features: 'no-panic,unstable-simd,yyjson',
+            rustflags: '-Z mir-opt-level=4 -C lto=fat -D warnings',
+            target: 'riscv64gc-unknown-linux-gnu',
+          },
         ]
     steps:
     - uses: actions/checkout@v4
