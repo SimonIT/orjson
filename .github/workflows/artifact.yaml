@@ -208,9 +208,11 @@ jobs:
           },
           {
             arch: 'riscv64',
-            cflags: '-Os -flto=full -fstrict-aliasing',
-            features: 'no-panic,unstable-simd,yyjson',
-            rustflags: '-Z mir-opt-level=4 -C lto=fat -D warnings',
+            cflags: '-Os -fstrict-aliasing',
+            features: 'no_panic,optimize',
+            image: 'ghcr.io/rust-cross/manylinux_2_31-cross:riscv64',
+            runner: "ubuntu-24.04",
+            rustflags: '-Z unstable-options -C panic=immediate-abort -Z mir-opt-level=4 -D warnings',
             target: 'riscv64gc-unknown-linux-gnu',
           },
         ]
