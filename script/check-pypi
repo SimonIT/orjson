@@ -30,6 +30,7 @@ per_abi_tags = (
     "manylinux_2_17_s390x.manylinux2014_s390x",
     "manylinux_2_17_x86_64.manylinux2014_x86_64",
     "manylinux_2_17_i686.manylinux2014_i686",
+    "manylinux_2_31_riscv64",
     "musllinux_1_2_aarch64",
     "musllinux_1_2_armv7l",
     "musllinux_1_2_i686",
