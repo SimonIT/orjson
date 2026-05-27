@@ -163,11 +163,11 @@ jobs:
       fail-fast: false
       matrix:
         python: [
-          { interpreter: 'python3.14', abi: 'cp314-cp314', manylinux: 'manylinux_2_17', maturin-version: 'v1.11.5', publish: true },
-          { interpreter: 'python3.13', abi: 'cp313-cp313', manylinux: 'manylinux_2_17', maturin-version: 'v1.13.1', publish: true },
-          { interpreter: 'python3.12', abi: 'cp312-cp312', manylinux: 'manylinux_2_17', maturin-version: 'v1.13.1', publish: true },
-          { interpreter: 'python3.11', abi: 'cp311-cp311', manylinux: 'manylinux_2_17', maturin-version: 'v1.13.1', publish: true },
-          { interpreter: 'python3.10', abi: 'cp310-cp310', manylinux: 'manylinux_2_17', maturin-version: 'v1.13.1', publish: true },
+          { interpreter: 'python3.14', abi: 'cp314-cp314', maturin-version: 'v1.11.5', publish: true },
+          { interpreter: 'python3.13', abi: 'cp313-cp313', maturin-version: 'v1.13.1', publish: true },
+          { interpreter: 'python3.12', abi: 'cp312-cp312', maturin-version: 'v1.13.1', publish: true },
+          { interpreter: 'python3.11', abi: 'cp311-cp311', maturin-version: 'v1.13.1', publish: true },
+          { interpreter: 'python3.10', abi: 'cp310-cp310', maturin-version: 'v1.13.1', publish: true },
         ]
         target: [
           {
@@ -175,6 +175,7 @@ jobs:
             cflags: '-Os -fstrict-aliasing',
             features: 'no_panic,optimize',
             image: 'quay.io/pypa/manylinux_2_28_i686:latest',
+            manylinux: 'manylinux_2_17',
             runner: "ubuntu-24.04",
             rustflags: '-Z unstable-options -C panic=immediate-abort -Z mir-opt-level=4 -D warnings',
             target: 'i686-unknown-linux-gnu',
@@ -184,6 +185,7 @@ jobs:
             cflags: '-Os -fstrict-aliasing',
             features: 'no_panic,optimize',
             image: 'ghcr.io/rust-cross/manylinux_2_28-cross:armv7',
+            manylinux: 'manylinux_2_17',
             runner: "ubuntu-24.04-arm",
             rustflags: '-Z unstable-options -C panic=immediate-abort -Z mir-opt-level=4 -D warnings -C opt-level=s',
             target: 'armv7-unknown-linux-gnueabihf',
@@ -193,6 +195,7 @@ jobs:
             cflags: '-Os -fstrict-aliasing',
             features: 'generic_simd,no_panic,optimize',
             image: 'ghcr.io/rust-cross/manylinux_2_28-cross:ppc64le',
+            manylinux: 'manylinux_2_17',
             runner: "ubuntu-24.04",
             rustflags: '-Z unstable-options -C panic=immediate-abort -Z mir-opt-level=4 -D warnings',
             target: 'powerpc64le-unknown-linux-gnu',
@@ -202,6 +205,7 @@ jobs:
             cflags: '-Os -fstrict-aliasing -march=z10',
             features: 'no_panic,optimize',
             image: 'ghcr.io/rust-cross/manylinux_2_28-cross:s390x',
+            manylinux: 'manylinux_2_17',
             runner: "ubuntu-24.04",
             rustflags: '-Z unstable-options -C panic=immediate-abort -Z mir-opt-level=4 -D warnings -C target-cpu=z10',
             target: 's390x-unknown-linux-gnu',
@@ -211,6 +215,7 @@ jobs:
             cflags: '-Os -fstrict-aliasing',
             features: 'no_panic,optimize',
             image: 'ghcr.io/rust-cross/manylinux_2_31-cross:riscv64',
+            manylinux: 'manylinux_2_31',
             runner: "ubuntu-24.04",
             rustflags: '-Z unstable-options -C panic=immediate-abort -Z mir-opt-level=4 -D warnings',
             target: 'riscv64gc-unknown-linux-gnu',
@@ -234,7 +239,7 @@ jobs:
       with:
         args: --release --strip --out=dist --features=${{ matrix.target.features }} -i ${{ matrix.python.interpreter }}
         container: "${{ matrix.target.image }}"
-        manylinux: "${{ matrix.python.manylinux }}"
+        manylinux: "${{ matrix.target.manylinux }}"
         maturin-version: "${{ matrix.python.maturin-version }}"
         rust-toolchain: "${{ env.RUST_TOOLCHAIN }}"
         rustup-components: rust-src
